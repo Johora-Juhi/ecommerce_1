@@ -13,7 +13,10 @@ const variantSchema = new Schema<TVariant>({
 });
 
 const inventorySchema = new Schema<TInventory>({
-  quantity: { type: Number, required: [true, "Product quantity is required"] },
+  quantity: { type: Number, required: [true, "Product quantity is required"], validate: {
+    validator: (value: number) => value > 0,
+    message: "Quantity must be positive",
+  }, },
   inStock: { type: Boolean, default: true },
 });
 const productSchema = new Schema<TProduct>({
