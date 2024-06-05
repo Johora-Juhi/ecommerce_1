@@ -2,13 +2,13 @@ import { TProduct } from "./product.interface";
 import { Product } from "./product.model";
 
 const createProductIntoDB = async (studentData: TProduct) => {
-  const result = await Product.create(studentData);
+  const result = await Product.create({ studentData }, { _id: 0 });
 
   return result;
 };
 
 const getAllProductFromDB = async () => {
-  const result = await Product.find({});
+  const result = await Product.find({}, { _id: 0 });
 
   return result;
 };
@@ -37,7 +37,7 @@ const deleteProductFromDB = async (productId: string) => {
 };
 
 const searchProductFromDB = async (searchTerm: string) => {
-  const regex = new RegExp(searchTerm, "i"); 
+  const regex = new RegExp(searchTerm, "i");
 
   const result = await Product.find({ tags: { $all: [regex] } });
   return result;
